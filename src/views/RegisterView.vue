@@ -1,0 +1,116 @@
+<template>
+        <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <a href="/">
+                        <h1 >Güvende Sigorta</h1>
+                    </a>               
+    <form @submit.prevent="registerUser">
+      <div class="form-group">
+        <input v-model="firstname" type="text" id="firstname" placeholder="Ad" required>
+      </div>
+      <div class="form-group">
+        <input v-model="lastname" type="text" id="lastname" placeholder="Soyad" required>
+      </div>
+      <div class="form-group">
+        <input v-model="email" type="email" id="email" placeholder="E-mail" required>
+      </div>
+      <div class="form-group">
+        <input v-model="password" type="password" id="password" placeholder="Şifre" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+    </form>
+        <span class="text-center mt-3 text-sm">
+      Zaten Üyeyim,
+      <router-link to="/login" class="text-red-900 hover:text-black">
+        Giriş yap!
+      </router-link>
+    </span>
+                    </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import AuthService from "@/services/AuthService"; // Update the import path as needed
+
+export default {
+  data() {
+    return {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      role: "ADMIN", // Default role is "user"
+    };
+  },
+  methods: {
+    registerUser() {
+      AuthService.register(this.firstname, this.lastname, this.email, this.password, this.role)
+        .then((data) => {
+          // Registration successful
+          console.log("Registration successful:", data);
+          this.$router.push('/login'); // Başarılı giriş sonrası yönlendirme
+          // Optionally, you can redirect the user to a different page after successful registration
+          // this.$router.push({ name: "Login" }); // Update the route name as needed
+        })
+        .catch((error) => {
+          // Registration failed
+          console.error("Registration failed:", error);
+        });
+    },
+  },
+};
+</script>
+
+<style scoped>
+.register-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+        .linkIcon{
+            border-radius: 100px;
+            background-color: #eaeef2;
+        }
+        a {
+            text-decoration: none;
+        }
+</style>
