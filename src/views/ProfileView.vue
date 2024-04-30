@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <Sidebar />
+        <Navbar />
     <div class="main-content">
           <div class="container">
     <div class="box">
@@ -94,12 +94,12 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBarTeacher.vue";
+  import Navbar from "@/components/NavBar.vue";
 
 export default {
 
   components: {
-    Sidebar
+    Navbar
   },
   data() {
     return {
@@ -232,10 +232,6 @@ export default {
 <style>
 .app {
   display: flex;
-}
-
-.sidebar {
-  width: 250px; /* Sabit genişlik */
 }
 
 .main-content {

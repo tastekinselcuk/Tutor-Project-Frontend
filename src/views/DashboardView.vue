@@ -1,7 +1,7 @@
 <template>
 
-<Sidebar class="sidebar" />
-<SidebarStudent class="sidebarStudent" />
+<Navbar class="navbar" />
+<NavbarStudent class="navbarStudent" />
 <div class="app">
           <!-- Begin Page Content -->
           <div class="container">
@@ -388,14 +388,14 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBar.vue";
-  import SidebarStudent from "@/components/SideBarStudent.vue";
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarStudent from "@/components/NavBarStudent.vue";
 
 export default {
 
   components: {
-    Sidebar,
-    SidebarStudent
+    Navbar,
+    NavbarStudent
   },
 }
 </script>

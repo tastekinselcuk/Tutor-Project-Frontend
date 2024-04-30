@@ -1,20 +1,20 @@
 <template>
-    <Sidebar class="sidebar" />
-    <SidebarTeacher class="sidebar" />
+    <Navbar class="navbar" />
+    <NavbarTutor class="navbarTutor" />
     <div id="schdeuleArea" >
         <iframe width="1024" height="576" src="https://miro.com/app/live-embed/uXjVKUXpGnc=/?moveToViewport=-4386,-1932,7999,3843&embedId=524468106142" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe>
     </div>
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBar.vue";
-  import SidebarTeacher from "@/components/SideBarTeacher.vue";
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarTutor from "@/components/NavBarTutor.vue";
 
 export default {
 
   components: {
-    Sidebar,
-    SidebarTeacher
+    Navbar,
+    NavbarTutor
   },
 }
 </script>

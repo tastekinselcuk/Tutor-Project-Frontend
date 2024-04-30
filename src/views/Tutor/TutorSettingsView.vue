@@ -1,5 +1,6 @@
 <template>
-    <Sidebar class="sidebar" />
+    <Navbar class="navbar" />
+    <NavbarTutor class="navbarTutor" />
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
@@ -168,12 +169,14 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBarTeacher.vue";
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarTutor from "@/components/NavBarTutor.vue";
 
 export default {
 
   components: {
-    Sidebar
+    Navbar,
+    NavbarTutor
   },
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
+<Navbar class="navbar" />
+<NavbarStudent class="navbarStudent" />
 <div class="app">
-          <Sidebar class="sidebar" />
           <!-- Begin Page Content -->
           <div class="container">
 
@@ -25,7 +26,7 @@
                                       <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                                   </div>
                                   <div class="col-auto">
-                                      <ion-icon name="calendar-outline"></ion-icon>
+                                      <ion-icon class="dashboardIcons" name="calendar-outline"></ion-icon>
                                   </div>
                               </div>
                           </div>
@@ -43,7 +44,7 @@
                                       <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                   </div>
                                   <div class="col-auto">
-                                    <ion-icon name="cash-outline"></ion-icon>
+                                    <ion-icon class="dashboardIcons" name="cash-outline"></ion-icon>
                                   </div>
                               </div>
                           </div>
@@ -72,7 +73,7 @@
                                       </div>
                                   </div>
                                   <div class="col-auto">
-                                    <ion-icon name="receipt-outline"></ion-icon>
+                                    <ion-icon class="dashboardIcons" name="receipt-outline"></ion-icon>
                                   </div>
                               </div>
                           </div>
@@ -90,7 +91,7 @@
                                       <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                   </div>
                                   <div class="col-auto">
-                                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                                    <ion-icon class="dashboardIcons" name="chatbubbles-outline"></ion-icon>
                                   </div>
                               </div>
                           </div>
@@ -384,16 +385,17 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBarStudent.vue";
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarStudent from "@/components/NavBarStudent.vue";
 
 export default {
 
   components: {
-    Sidebar
+    Navbar,
+    NavbarStudent
   },
 }
 </script>
-
 
 <style>
 /*!
@@ -532,7 +534,7 @@ body {
   background-color: #fff;
 }
 
-ion-icon {
+.dashboardIcons {
   color: #dddfeb;
   padding-top: 5px;
   font-size: 45px;
@@ -6610,10 +6612,6 @@ footer.sticky-footer .copyright {
   font-size: 0.8rem;
 }
 
-body.sidebar-toggled footer.sticky-footer {
-  width: 100%;
-}
-
 .app {
   display: flex;
 }
@@ -6623,12 +6621,6 @@ body.sidebar-toggled footer.sticky-footer {
   padding: 20px;
 }
 
-.sidebar {
-  width: 250px;
-  background-color: #333;
-  color: white;
-  padding: 20px;
-}
 
 /*Table */
 h1 {

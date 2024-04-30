@@ -11,22 +11,22 @@
                 <!--Navbar pages-->
                 <ul id="navItems" class="navbar-nav">
                     <li class="nav-item">
-                        <router-link to="/teacherMessage">Messages</router-link>
+                        <router-link to="/tutorMessage">Messages</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/teacherCourses">My Lessons</router-link>
+                        <router-link to="/tutorCourses">My Lessons</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/teacherTransaction">Transaction</router-link>
+                        <router-link to="/tutorTransaction">Transaction</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/teacherAssignment">Assignment</router-link>
+                        <router-link to="/tutorAssignment">Assignment</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/teacherLive">Live Lessons</router-link>
+                        <router-link to="/tutorLive">Live Lessons</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/teacherSettings">Settings</router-link>
+                        <router-link to="/tutorSettings">Settings</router-link>
                     </li>
                 </ul>
             </div>
@@ -64,24 +64,28 @@ export default {
 }
 #navItems li {
     display: block;
-    padding: 10px 15px 7px;
+    padding: 10px 5px 7px;
 }
 #navItems a {
+    display: block;
+    border-radius: 5px 5px 5px 5px;
     color: #4e4e4e;
     font-size: 16px;
     font-family: 'Arial Rounded MT';
     font-weight: bold;
+    padding: 8px;
     text-decoration: none;
 }
 #navItems a:not(.router-link-active):hover {
+    display: block;
+    border-radius: 5px 5px 5px 5px;
     font-size: 16px;
     font-family: 'Arial Rounded MT';
     font-weight: bold;
     text-decoration: none;
-    color: transparent; /* Yalnızca aktif olmayan linkler için metin rengini şeffaf yapın */
-    background-image: linear-gradient(90deg, #7F7FD5 20%, #91EAE4 90%); /* Gradiyent renk geçişi */
-    -webkit-background-clip: text; /* Metni gradiyentle doldurun (Webkit tarayıcıları için) */
-    background-clip: text; /* Metni gradiyentle doldurun */
+    padding: 8px;
+    background-color: #F4F3F8;
+
 }
 
 /*Underline Design */

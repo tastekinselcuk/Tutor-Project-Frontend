@@ -1,9 +1,9 @@
 <template>
+<Navbar class="navbar" />
+<NavbarStudent class="navbarStudent" />
 
 <main class="content">
     <div class="container p-0">
-        <Sidebar class="sidebar" />
-
 		<h1 class="h3 mb-3">Messages</h1>
 
 		<div class="card">
@@ -269,12 +269,14 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBarStudent.vue";
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarStudent from "@/components/NavBarStudent.vue";
 
 export default {
 
   components: {
-    Sidebar
+    Navbar,
+    NavbarStudent
   },
 }
 </script>

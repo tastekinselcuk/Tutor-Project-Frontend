@@ -1,7 +1,8 @@
 <template>
-	<!--Sidebar-->
+	<!--Navbar-->
+    <Navbar class="navbar" />
+    <NavbarStudent class="navbarStudent" />
     <div class="app">
-        <Sidebar />
         <div id="form" class="container">
             <form th:action="@{iletisim}" th:object="${Contact}" method="post">			
                 <h1 id="iletisimBaslık">Contact with me</h1>
@@ -48,13 +49,15 @@
 </template>
 
 <script>
-  import Sidebar from "@/components/SideBarTeacher.vue";
-
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarTutor from "@/components/NavBarTutor.vue";
 
 export default {
+
   components: {
-    Sidebar
-  }
+    Navbar,
+    NavbarTutor
+  },
 }
 </script>
 

@@ -5,6 +5,7 @@ export default createStore({
   state: {
     user: null,
     username : null,
+    userRole : null,
   },
   getters: {
     _isAuthenticated: state => state.user !== null,
@@ -20,6 +21,9 @@ export default createStore({
     },
     logoutUser(state) {
       state.user = null;
+    },
+    setUserRole(state, role) {
+      state.userRole = role;
     },
   },
   actions: {

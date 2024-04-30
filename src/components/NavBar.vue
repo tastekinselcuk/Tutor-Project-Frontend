@@ -13,9 +13,13 @@
             <!--Navbar items-->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <!--Navbar pages-->
-                <router-link to="/teacherTransaction"><ion-icon name="wallet-outline"></ion-icon></router-link>
-                <router-link to="/teacherMessage"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></router-link>
-                <router-link to="/teacherHelp"><ion-icon name="help-circle-outline"></ion-icon></router-link>
+                <!-- Wallet icon ve para miktarı -->
+                <div class="wallet-container" @click="toggleWalletPanel">
+                    <ion-icon name="wallet-outline" class="wallet-icon"></ion-icon>
+                    <span v-if="walletOpen" class="wallet-amount">{{ paraMiktari }} TL</span>
+                </div>
+                <router-link to="/tutorMessage"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></router-link>
+                <router-link to="/tutorHelp"><ion-icon name="help-circle-outline"></ion-icon></router-link>
                 <!--Login button-->
                 <router-link class="auth-dependant" to="/login" v-if="!_isAuthenticated">
                     Giriş Yap<ion-icon name="log-in-outline"></ion-icon>
@@ -46,21 +50,28 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import { mapGetters } from 'vuex';
-
+import { mapGetters, mapState } from 'vuex';
 
 export default {
-
-  computed:{
+  data() {
+    return {
+      walletOpen: false, // Vallet panelinin açık/kapalı durumunu kontrol eder
+      paraMiktari: 1500, // Gösterilecek para miktarı
+    };
+  },
+  computed: {
     ...mapGetters(["_isAuthenticated"]),
+    ...mapState(['userRole'])
   },
   methods: {
-    logout(){
-      this.$store.commit("setUser", null)
-    }
-  }
-}
+    toggleWalletPanel() {
+      this.walletOpen = !this.walletOpen; // Vallet panelini açıp/kapatır
+    },
+    logout() {
+      this.$store.commit("setUser", null);
+    },
+  },
+};
 </script>
 
 
@@ -109,23 +120,12 @@ export default {
         background-clip: text; /* Metni gradiyentle doldurun */
     }
 
-    /*Underline Design */
-    .router-link-active {
-        background-image: linear-gradient(90deg, #7F7FD5 20%, #91EAE4 90%);
-        background-size: 100% 2px; /* Alt çizginin kalınlığı */
-        background-repeat: no-repeat;
-        background-position: 0 100%; /* Alt çizginin başlangıç pozisyonu */
-        text-decoration: none; /* Metin üzerindeki varsayılan alt çizgiyi kaldırır */
-        display: inline-block; /* Metnin yatayda sadece gereken kadar yer kaplamasını sağlar */
-        padding-bottom: 3px; /* Alt çizgi ile metin arasında bir boşluk ekler (isteğe bağlı) */
-    }
-
     /*Navbar Login-Profile */
     .auth-dependant {
         color: #4e4e4e;
         height: 50px;
         margin-left: 10px;
-        border-radius: 10px 10px 10px 10px;
+        border-radius: 10px;
         background-color: #fff;
         text-decoration: none;
         display: block;
@@ -135,17 +135,14 @@ export default {
         color: #728DFF;
         height: 50px;
         margin-left: 10px;
-        border-radius: 10px 10px 10px 10px;
+        border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         transition-duration: 0.3s;
     }
-    .auth-dependant a {
-        color: #4e4e4e;
-        text-decoration: none;
-    }
-    .auth-dependant a:hover {
+
+    .auth-dependant:hover ion-icon {
         color: #728DFF;
-        text-decoration: none;
+        transition-duration: 0.3s;
     }
 
     .btn{
@@ -166,6 +163,7 @@ export default {
     }
 
     ion-icon{
+        color: #4e4e4e;
         font-size: 26px;
         float: right;
         margin-left: 15px;
@@ -173,6 +171,29 @@ export default {
     ion-icon:hover{
         color: #728DFF;
         transition-duration: 0.3s;
+    }
+    /* Wallet container */
+    .wallet-container {
+    display: flex;
+    align-items: center;
+    }
+
+    /* Wallet icon */
+    .wallet-icon {
+    font-size: 24px;
+    color: #4e4e4e;
+    margin-right: 5px; /* Wallet icon ile para miktarı arasında boşluk bırak */
+    }
+
+    /* Para miktarı */
+    .wallet-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #728DFF;
+    }
+    /* Para miktarı görünür hale getir */
+    .wallet-amount.visible {
+        transition-duration: 2s;
     }
 
     /*Profile button*/
@@ -183,21 +204,20 @@ export default {
       top: 100px;
     }
   
-  .profile img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-  }
-  
-  .profile-info {
-      text-align: right;
-  }
-  
-  .profile-info h3 {
-      margin: 0;
-      font-size: 16px;
-  }
+    .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 
+    .profile-info {
+        text-align: right;
+    }
+
+    .profile-info h3 {
+        margin: 0;
+        font-size: 16px;
+    }
 </style>
 

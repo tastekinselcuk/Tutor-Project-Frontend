@@ -4,7 +4,10 @@
             <div class="row">
                 <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                     <a href="/">
-                        <h1 >Güvende Sigorta</h1>
+                    <a id="logo" class="navbar-brand ml-30" href="/">
+                        <img class="navbar-brand" href="/" src="../assets/images/logo2.png" alt="TUTORDAN" />
+                    </a>
+                    <p class="bebas-neue-regular">TUTORDAN</p>
                     </a>                        
                         <form @submit="login">			
                             <!-- Email input -->
@@ -84,4 +87,12 @@ export default {
         a {
             text-decoration: none;
         }
+        .bebas-neue-regular {
+        margin-top: 25px;
+        font-size: 26px;
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #b3afa5;
+    }
     </style>

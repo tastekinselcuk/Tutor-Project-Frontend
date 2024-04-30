@@ -1,6 +1,7 @@
 <template>
+    <Navbar class="navbar" />
+    <NavbarTutor class="navbarTutor" />
   <div class="wrapper" id="app">
-    <Sidebar class="sidebar" />
     <CardForm
       :form-data="formData"
       @input-card-number="updateCardNumber"
@@ -14,13 +15,15 @@
 </template>
 
 <script>
-import Sidebar from "@/components/SideBarTeacher.vue";
-import CardForm from '@/components/CardForm.vue'
+  import Navbar from "@/components/NavBar.vue";
+  import NavbarTutor from "@/components/NavBarTutor.vue";
+  import CardForm from '@/components/CardForm.vue'
 export default {
   name: 'app',
   components: {
     CardForm,
-    Sidebar
+    Navbar,
+    NavbarTutor
   },
   data () {
     return {

@@ -1,17 +1,17 @@
 <template>
     <Navbar class="navbar" />
-    <NavbarStudent class="navbarStudent" />
+    <NavbarTutor class="navbarTutor" />
 </template>
 
 <script>
   import Navbar from "@/components/NavBar.vue";
-  import NavbarStudent from "@/components/NavBarStudent.vue";
+  import NavbarTutor from "@/components/NavBarTutor.vue";
 
 export default {
 
   components: {
     Navbar,
-    NavbarStudent
+    NavbarTutor
   },
 }
 </script>

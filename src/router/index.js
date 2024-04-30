@@ -6,7 +6,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/DashboardView.vue')
+    component: () => import('../views/Student/StudentDashboardView.vue')
   },
   {
     path: '/Login',
@@ -44,51 +44,51 @@ const routes = [
     name: 'Assignment',
     component: () => import('../views/AssignmentView.vue')
   },
-  //Teacher
+  //Tutor
   {
-    path: '/teacherDashboard',
-    name: 'TeacherDashboard',
-    component: () => import('../views/Teacher/TeacherDashboardView.vue')
+    path: '/tutorDashboard',
+    name: 'TutorDashboard',
+    component: () => import('../views/Tutor/TutorDashboardView.vue')
   },
   {
-    path: '/teacherCourses',
-    name: 'TeacherCourses',
-    component: () => import('../views/Teacher/TeacherCoursesView.vue')
+    path: '/tutorCourses',
+    name: 'TutorCourses',
+    component: () => import('../views/Tutor/TutorCoursesView.vue')
   },
   {
-    path: '/teacherStudent',
-    name: 'TeacherStudent',
-    component: () => import('../views/Teacher/TeacherStudentView.vue')
+    path: '/tutorStudent',
+    name: 'TutorStudent',
+    component: () => import('../views/Tutor/TutorStudentView.vue')
   },
   {
-    path: '/teacherAssignment',
-    name: 'TeacherAssignment',
-    component: () => import('../views/Teacher/TeacherAssignmentView.vue')
+    path: '/tutorAssignment',
+    name: 'TutorAssignment',
+    component: () => import('../views/Tutor/TutorAssignmentView.vue')
   },
   {
-    path: '/teacherSchedule',
-    name: 'TeacherSchedule',
-    component: () => import('../views/Teacher/TeacherScheduleView.vue')
+    path: '/tutorSchedule',
+    name: 'TutorSchedule',
+    component: () => import('../views/Tutor/TutorScheduleView.vue')
   },
   {
-    path: '/teacherLive',
-    name: 'TeacherLive',
-    component: () => import('../views/Teacher/TeacherLiveView.vue')
+    path: '/tutorLive',
+    name: 'TutorLive',
+    component: () => import('../views/Tutor/TutorLiveLessonView.vue')
   },
   {
-    path: '/teacherTransaction',
-    name: 'TeacherTransaction',
-    component: () => import('../views/Teacher/TeacherTransactionVıew.vue')
+    path: '/tutorTransaction',
+    name: 'TutorTransaction',
+    component: () => import('../views/Tutor/TutorTransactionVıew.vue')
   },
   {
-    path: '/teacherMessage',
-    name: 'TeacherMessage',
-    component: () => import('../views/Teacher/TeacherMessageView.vue')
+    path: '/tutorMessage',
+    name: 'TutorMessage',
+    component: () => import('../views/Tutor/TutorMessageView.vue')
   },
   {
-    path: '/teacherSettings',
-    name: 'TeacherSettings',
-    component: () => import('../views/Teacher/TeacherSettingsView.vue')
+    path: '/tutorSettings',
+    name: 'TutorSettings',
+    component: () => import('../views/Tutor/TutorSettingsView.vue')
   },
   //Student
   {
