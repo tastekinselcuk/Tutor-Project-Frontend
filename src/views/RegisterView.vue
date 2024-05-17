@@ -1,11 +1,14 @@
 <template>
-        <div id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <a href="/">
-                        <h1 >Güvende Sigorta</h1>
-                    </a>               
+  <div id="app">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="logo">
+                <a id="logo" class="navbar-brand ml-30" href="/">
+                    <img class="navbar-brand" href="/" src="../assets/images/Logo/logo2.png" alt="TUTORDAN" />
+                    <p class="bebas-neue-regular mb-5 mt-2">TUTORDAN</p>
+                </a>
+              </div>            
     <form @submit.prevent="registerUser">
       <div class="form-group">
         <input v-model="firstname" type="text" id="firstname" placeholder="Ad" required>
@@ -22,7 +25,7 @@
 
       <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
     </form>
-        <span class="text-center mt-3 text-sm">
+    <span class="text-center mt-3 text-sm">
       Zaten Üyeyim,
       <router-link to="/login" class="text-red-900 hover:text-black">
         Giriş yap!
@@ -44,7 +47,7 @@ export default {
       lastname: "",
       email: "",
       password: "",
-      role: "ADMIN", // Default role is "user"
+      role: "STUDENT", // Default role is "user"
     };
   },
   methods: {
@@ -67,13 +70,20 @@ export default {
 </script>
 
 <style scoped>
-.register-container {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+  .bebas-neue-regular {
+  margin-top: 25px;
+  font-size: 26px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #b3afa5;
+  }
+  .logo{
+    display: flex;
+    justify-content: center; /* Yatay ortala */
+    align-items: center;
+    text-align: center;
+  }
 
 .form-group {
   margin-bottom: 15px;
@@ -89,7 +99,7 @@ input[type="email"],
 input[type="password"],
 select {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
@@ -98,7 +108,7 @@ button {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -113,4 +123,5 @@ button:hover {
         a {
             text-decoration: none;
         }
+
 </style>

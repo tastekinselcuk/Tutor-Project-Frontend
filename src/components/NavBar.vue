@@ -3,7 +3,7 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a id="logo" class="navbar-brand ml-30" href="/">
-                <img class="navbar-brand" href="/" src="../assets/images/logo2.png" alt="TUTORDAN" />
+                <img class="navbar-brand" href="/" src="../assets/images/Logo/logo2.png" alt="TUTORDAN" />
             </a>
             <p class="bebas-neue-regular">TUTORDAN</p>
             <!--Responsive toggle button-->
@@ -19,7 +19,7 @@
                     <span v-if="walletOpen" class="wallet-amount">{{ paraMiktari }} TL</span>
                 </div>
                 <router-link to="/tutorMessage"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></router-link>
-                <router-link to="/tutorHelp"><ion-icon name="help-circle-outline"></ion-icon></router-link>
+                <router-link to="/contact"><ion-icon name="help-circle-outline"></ion-icon></router-link>
                 <!--Login button-->
                 <router-link class="auth-dependant" to="/login" v-if="!_isAuthenticated">
                     Giriş Yap<ion-icon name="log-in-outline"></ion-icon>

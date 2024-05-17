@@ -91,7 +91,7 @@ export default {
 
 /*Underline Design */
 .router-link-active {
-    background-image: linear-gradient(90deg, #7F7FD5 20%, #91EAE4 90%);
+    background-image: linear-gradient(90deg, #FF7AAC 20%, #3DDABE 90%);
     background-size: 100% 2px; /* Alt çizginin kalınlığı */
     background-repeat: no-repeat;
     background-position: 0 100%; /* Alt çizginin başlangıç pozisyonu */
