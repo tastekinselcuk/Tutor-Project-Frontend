@@ -29,11 +29,12 @@ class AuthService {
       .then((response) => {
         if (response.data.accessToken) {
           this.updateUserInLocalStorage(response.data); // Kullanıcı oturum açtığında localStorage'ı güncelle
+          // Vuex store'u güncelle
+          this.$store.commit("setUser", response.data); // Bu satırı ekle
         }
         return response.data;
       });
   }
-
   logout() {
     localStorage.removeItem('user'); // Oturumu kapattığınızda localStorage'dan kullanıcı bilgilerini kaldırın
   }

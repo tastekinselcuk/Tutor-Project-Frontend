@@ -30,7 +30,7 @@
                     <div  class="profile">
                         <img src="../assets/images/Default_pfp.jpg" alt="Profil Resmi">
                         <div class="profile-info">
-                            <h3>Selçuk Taştekin</h3>
+                            <h3 class="text-decoration-none">Selçuk Taştekin</h3>
                         </div>
                     </div>                
                 </a>
