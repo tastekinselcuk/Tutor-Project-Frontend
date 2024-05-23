@@ -30,7 +30,7 @@
                     <div  class="profile">
                         <img src="../assets/images/Default_pfp.jpg" alt="Profil Resmi">
                         <div class="profile-info">
-                            <h3 class="text-decoration-none">Selçuk Taştekin</h3>
+                        <h3 class="text-decoration-none">{{ getUserDto.firstname }} {{ getUserDto.lastname }}</h3>
                         </div>
                     </div>                
                 </a>
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     ...mapGetters(["_isAuthenticated"]),
-    ...mapState(['userRole'])
+    ...mapGetters(['getUserDto'])
   },
   methods: {
     toggleWalletPanel() {
@@ -71,6 +71,7 @@ export default {
       this.$store.commit("setUser", null);
     },
   },
+  
 };
 </script>
 

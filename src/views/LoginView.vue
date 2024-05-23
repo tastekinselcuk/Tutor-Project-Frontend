@@ -78,7 +78,7 @@ export default {
             this.$router.push('/tutorDashboard');
           } else {
             // Diğer durumlar için varsayılan bir yönlendirme
-            this.$router.push('/');
+            this.$router.push('/tutorDashboard');
           }
         })
         .catch((error) => {

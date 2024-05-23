@@ -28,13 +28,14 @@ class AuthService {
       .post(`${API_URL}/authenticate`, { email, password })
       .then((response) => {
         if (response.data.accessToken) {
-          this.updateUserInLocalStorage(response.data); // Kullanıcı oturum açtığında localStorage'ı güncelle
           // Vuex store'u güncelle
           this.$store.commit("setUser", response.data); // Bu satırı ekle
+          this.$store.commit("setUser", userData.userDto); // Bu satırı ekle
         }
         return response.data;
       });
   }
+
   logout() {
     localStorage.removeItem('user'); // Oturumu kapattığınızda localStorage'dan kullanıcı bilgilerini kaldırın
   }
@@ -43,10 +44,6 @@ class AuthService {
     return JSON.parse(localStorage.getItem('user'));
   }
 
-  // localStorage'daki kullanıcı bilgilerini güncellemek için yardımcı yöntem
-  updateUserInLocalStorage(userData) {
-    localStorage.setItem('user', JSON.stringify(userData));
-  }
 }
 
 export default new AuthService();

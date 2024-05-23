@@ -38,35 +38,36 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService"; // Update the import path as needed
+import AuthService from '@/services/AuthService';
+import TokenService from '@/services/TokenService';
 
 export default {
   data() {
     return {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      role: "STUDENT", // Default role is "user"
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: ''
     };
   },
   methods: {
-    registerUser() {
-      AuthService.register(this.firstname, this.lastname, this.email, this.password, this.role)
-        .then((data) => {
-          // Registration successful
-          console.log("Registration successful:", data);
-          this.$router.push('/login'); // Başarılı giriş sonrası yönlendirme
-          // Optionally, you can redirect the user to a different page after successful registration
-          // this.$router.push({ name: "Login" }); // Update the route name as needed
-        })
-        .catch((error) => {
-          // Registration failed
-          console.error("Registration failed:", error);
-        });
-    },
-  },
-};
+    async register() {
+      try {
+        const userData = await AuthService.register(this.firstname, this.lastname, this.email, this.password);
+        const tokenData = await TokenService.decodeToken(userData.accessToken);
+        
+        // Kullanıcı bilgilerini sakla
+        this.$store.commit('setUser', tokenData);
+        
+        // Daha fazla yönlendirme veya işlem yapabilirsiniz
+        this.$router.push('/dashboard');
+      } catch (error) {
+        console.error('Registration error:', error);
+        // Hata işleme
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
