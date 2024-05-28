@@ -1,40 +1,15 @@
 <template>
+  <Navbar class="navbar" />
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6 left">
         <!--Form -->
-        <form @submit.prevent="registerUser">
-          <div class="form-group mb-2">
-            <input type="text" class="form-control" v-model="name" id="name" required placeholder="Ad:">
-          </div>
-          <div class="form-group mb-2">
-            <input type="text" class="form-control" v-model="surname" id="surname" required placeholder="Soyad:">
-          </div>
-          <div class="form-group mb-2">
-            <input type="email" class="form-control" v-model="email" id="surname" required placeholder="E-mail:">
-          </div>
-          <div class="form-group mb-2">
-            <input class="form-control" v-model="password" type="password" id="password" placeholder="Şifre" required>
-          </div>
-          <div class="form-group">
-            <label for="userType">Kullanıcı Türü:</label>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" v-model="role" id="student" name="userType" value="STUDENT" required>
-              <label class="form-check-label" for="student">Öğrenci</label>
-            </div>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" v-model="role" id="teacher" name="userType" value="TEACHER" required>
-              <label class="form-check-label" for="teacher">Öğretmen</label>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary mt-3">Kayıt ol</button>
-          <span class=" mt-3 text-sm ">
-          Zaten Üyeyim,
-          <router-link to="/login" class="text-red-900 hover:text-black text-decoration-none">
-            Giriş yap!
+        <div class="button-container d-flex align-items-center justify-content-center">
+          <router-link to="/register" class="btn btn-dark d-flex align-items-center justify-content-center">
+            Hemen Başla
+            <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
           </router-link>
-          </span>
-        </form>
+        </div>
         <!--Header -->
         <h1>En iyi öğretmenlerle<br> potansiyelini gerçekleştir.</h1>
         <p>30.000'i aşkın eğitimci ve 1M+ öğrenci Tutordan'ı tercih ediyor.<br> Çünkü eğitim bizim işimiz.</p>
@@ -76,10 +51,13 @@
 <script>
 import { mapGetters } from "vuex";
 import AuthService from "@/services/AuthService";
+import Navbar from "@/components/NavBar.vue";
+
 
 export default {
   name: "HomeView",
   components: {
+    Navbar,
   },
   data() {
     return {
@@ -87,7 +65,7 @@ export default {
       lastname: "",
       email: "",
       password: "",
-      role: "STUDENT", // Default role is "user"
+      role: "STUDENT",
     };
   },
   computed: {
@@ -100,8 +78,6 @@ export default {
           // Registration successful
           console.log("Registration successful:", data);
           this.$router.push('/login'); // Başarılı giriş sonrası yönlendirme
-          // Optionally, you can redirect the user to a different page after successful registration
-          // this.$router.push({ name: "Login" }); // Update the route name as needed
         })
         .catch((error) => {
           // Registration failed
@@ -113,11 +89,15 @@ export default {
 </script>
 
 <style scoped>
+.navbar{
+  position: fixed;
+  width: 100%;
+}
 h1{
   position: relative;
   z-index: 10;
   font-size: 45px;
-  top: 50px;
+  top: 80px;
   text-align: center;
   margin-top: 20px;
 }
@@ -125,11 +105,37 @@ p{
   position: relative;
   z-index: 10;
   font-size: 15px;
-  top: 50px;
+  top: 80px;
   text-align: center;
   color: #fff;
 }
-/*Left side */
+.button-container {
+  position: fixed;
+  height: 130vh;
+  width: 202vh;
+}
+.btn {
+    background-color: #121117;
+    display: flex;
+    height: 55px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+.btn:hover {
+    background-color: #121117;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 12px;
+}
+.btn ion-icon {
+    margin-left: 10px;
+}
 .left {
   background-color: #FF7AAC;
   height: 100vh;
@@ -139,7 +145,6 @@ p{
   top: 15vh;
   width: 200px;
 }
-/*Icons*/
 .studentIcon1{
   position: fixed;
   left: 10px;
@@ -163,24 +168,24 @@ p{
   position: fixed;
   z-index: 1;
   left: 700px;
-  top: 30vh;
+  top: 35vh;
   width: 50px;
   transform: rotate(-55deg);
 }
 .pen1:hover {
-  transform: scale(1.5) rotate(-55deg);  /* Maintain initial rotation */
-  transition: transform 0.3s ease-in-out; /* Apply transition to both scale and rotate */
+  transform: scale(1.5) rotate(-55deg);
+  transition: transform 0.3s ease-in-out;
 }
 
 .pen2{
   position: fixed;
   left: 1400px;
-  top: 20vh;
+  top: 25vh;
   width: 50px;
 }
 .pen2:hover {
-  transform: scale(1.5); /* Adjust the value for desired scale */
-  transition: transform 0.3s ease-in-out; /* Add smooth transition */
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
 }
 .pen3{
   position: fixed;
@@ -189,8 +194,8 @@ p{
   width: 50px;
 }
 .pen3:hover {
-  transform: scale(1.5); /* Adjust the value for desired scale */
-  transition: transform 0.3s ease-in-out; /* Add smooth transition */
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
 }
 .pen4{
   position: fixed;
@@ -201,8 +206,8 @@ p{
   width: 20px;
 }
 .pen4:hover {
-  transform: scale(1.5) rotate(25deg);  /* Maintain initial rotation */
-  transition: transform 0.3s ease-in-out; /* Apply transition to both scale and rotate */
+  transform: scale(1.5) rotate(25deg);
+  transition: transform 0.3s ease-in-out;
 }
 .erase{
   position: fixed;
@@ -212,19 +217,19 @@ p{
   width: 40px;
 }
 .erase:hover {
-  transform: scale(1.5); /* Adjust the value for desired scale */
-  transition: transform 0.3s ease-in-out; /* Add smooth transition */
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
 }
 .ruler{
   position: fixed;
   z-index: 1;
   left: 300px;
-  top: 15vh;
+  top: 18vh;
   width: 80px;
 }
 .ruler:hover {
-  transform: scale(1.5); /* Adjust the value for desired scale */
-  transition: transform 0.3s ease-in-out; /* Add smooth transition */
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Form */

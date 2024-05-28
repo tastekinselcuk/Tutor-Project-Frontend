@@ -1,59 +1,90 @@
 <template>
-    <Navbar class="navbar" />
-    <NavbarTutor class="navbarTutor" />
-  <div class="wrapper" id="app">
-    <CardForm
-      :form-data="formData"
-      @input-card-number="updateCardNumber"
-      @input-card-name="updateCardName"
-      @input-card-month="updateCardMonth"
-      @input-card-year="updateCardYear"
-      @input-card-cvv="updateCardCvv"
-    />
-    <!-- backgroundImage="https://images.unsplash.com/photo-1572336183013-960c3e1a0b54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" -->
+    <Navbar />
+    <NavbarTutor />
+  <div class="container">
+    <h2>Yeni Ödeme Kaydı Aç</h2>
+    <div class="form-group">
+      <label for="course">Kurs Seç:</label>
+      <select v-model="selectedCourse" class="form-control" id="course">
+        <option v-for="course in courses" :key="course.id" :value="course.id">{{ course.courseSubject }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="students">Öğrencileri Seç:</label>
+      <select v-model="selectedStudents" multiple class="form-control" id="students">
+        <option v-for="student in students" :key="student.id" :value="student.id">{{ student.fullName }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="paymentDate">Ödeme Tarihi:</label>
+      <input type="date" v-model="paymentDate" class="form-control" id="paymentDate">
+    </div>
+    <div class="form-group">
+      <label for="amount">Ödeme Miktarı:</label>
+      <input type="number" v-model="amount" class="form-control" id="amount">
+    </div>
+    <button @click="createPaymentRecord" class="btn btn-primary">Kaydet</button>
   </div>
 </template>
 
 <script>
-  import Navbar from "@/components/NavBar.vue";
-  import NavbarTutor from "@/components/NavBarTutor.vue";
-  import CardForm from '@/components/CardForm.vue'
+import TransactionService from "@/services/TransactionService";
+import Navbar from "@/components/NavBar.vue";
+import NavbarTutor from "@/components/NavBarTutor.vue";
+
 export default {
-  name: 'app',
   components: {
-    CardForm,
     Navbar,
     NavbarTutor
   },
-  data () {
+  data() {
     return {
-      formData: {
-        cardName: '',
-        cardNumber: '',
-        cardMonth: '',
-        cardYear: '',
-        cardCvv: ''
-      }
-    }
+      selectedCourse: null,
+      selectedStudents: [],
+      paymentDate: '',
+      amount: '',
+      courses: [], // Kurs listesi burada tutulacak
+      students: [] // Öğrenci listesi burada tutulacak
+    };
+  },
+  mounted() {
+    this.loadCourses();
+    this.loadStudents();
   },
   methods: {
-    updateCardNumber (val) {
+    loadCourses() {
+      // Örnek kurs listesi
+      this.courses = [
+        { id: 1, courseSubject: 'Matematik' },
+        { id: 2, courseSubject: 'Fizik' },
+        { id: 3, courseSubject: 'Kimya' }
+      ];
     },
-    updateCardName (val) {
+    loadStudents() {
+      // Örnek öğrenci listesi
+      this.students = [
+        { id: 1, fullName: 'Ahmet Yılmaz' },
+        { id: 2, fullName: 'Ayşe Kaya' },
+        { id: 3, fullName: 'Mehmet Demir' }
+      ];
     },
-    updateCardMonth (val) {
-    },
-    updateCardYear (val) {
-    },
-    updateCardCvv (val) {
+    createPaymentRecord() {
+      // Seçilen kurs ve öğrencileri kullanarak yeni bir ödeme kaydı oluşturma işlemi burada yapılabilir
+      console.log('Seçilen Kurs:', this.selectedCourse);
+      console.log('Seçilen Öğrenciler:', this.selectedStudents);
+      console.log('Ödeme Tarihi:', this.paymentDate);
+      console.log('Ödeme Miktarı:', this.amount);
     }
-  },
-  mounted () {
-    this.$i18n.locale = navigator.language
   }
-}
+};
 </script>
 
-<style lang="scss">
-@import '../../assets/style.scss';
+<style scoped>
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+}
+.form-group {
+  margin-bottom: 20px;
+}
 </style>

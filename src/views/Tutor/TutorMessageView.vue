@@ -2,10 +2,7 @@
     <Navbar class="navbar" />
     <NavbarTutor class="navbarTutor" />
 <main class="content">
-    <div class="container p-0">
-
-		<h1 class="h3 mb-3">Messages</h1>
-
+    <div class="container-fluid p-3 pt-0">
 		<div class="card">
 			<div class="row g-0">
 				<div class="col-12 col-lg-5 col-xl-3 border-right">

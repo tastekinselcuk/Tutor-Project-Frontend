@@ -1,7 +1,6 @@
-// src/services/ContactFormService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8086/contact'; // Değiştirilmesi gerekebilir
+const API_URL = 'http://localhost:8086/contact';
 
 class ContactFormService {
   getAllContactForms() {

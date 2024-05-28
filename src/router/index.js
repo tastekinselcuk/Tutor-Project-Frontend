@@ -1,33 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
+// router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
 import store from "../store";
 
 const routes = [
-  //Main
+  // Main
   {
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/Login',
+    path: '/login',
     name: 'Login',
     component: () => import('../views/LoginView.vue')
   },
   {
-    name: "RegisterPage",
+    name: "register",
     path: "/register",
     component: () => import("../views/RegisterView.vue")
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('../views/DashboardView.vue')
-  },
-
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('../views/ProfileView.vue')
   },
   {
     path: '/contact',
@@ -35,119 +25,169 @@ const routes = [
     component: () => import('../views/ContactView.vue')
   },
   {
-    path: '/settings',
-    name: 'Settings',
-    component: () => import('../views/SettingsView.vue')
+    path: '/findTutor',
+    name: 'FindTutor',
+    component: () => import('../views/TutorFindView.vue')
   },
   {
-    path: '/assignment',
-    name: 'Assignment',
-    component: () => import('../views/AssignmentView.vue')
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/AboutView.vue')
   },
-  //Tutor
+  // Tutor
   {
     path: '/tutorDashboard',
     name: 'TutorDashboard',
-    component: () => import('../views/Tutor/TutorDashboardView.vue')
+    component: () => import('../views/Tutor/TutorDashboardView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorCourses',
     name: 'TutorCourses',
-    component: () => import('../views/Tutor/TutorCoursesView.vue')
+    component: () => import('../views/Tutor/TutorCoursesView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorStudent',
     name: 'TutorStudent',
-    component: () => import('../views/Tutor/TutorStudentView.vue')
+    component: () => import('../views/Tutor/TutorStudentView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorAssignment',
     name: 'TutorAssignment',
-    component: () => import('../views/Tutor/TutorAssignmentView.vue')
+    component: () => import('../views/Tutor/TutorAssignmentView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorSchedule',
     name: 'TutorSchedule',
-    component: () => import('../views/Tutor/TutorScheduleView.vue')
+    component: () => import('../views/Tutor/TutorScheduleView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorLive',
     name: 'TutorLive',
-    component: () => import('../views/Tutor/TutorLiveLessonView.vue')
+    component: () => import('../views/Tutor/TutorLiveLessonView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorTransaction',
     name: 'TutorTransaction',
-    component: () => import('../views/Tutor/TutorTransactionVıew.vue')
+    component: () => import('../views/Tutor/TutorTransactionVıew.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorMessage',
     name: 'TutorMessage',
-    component: () => import('../views/Tutor/TutorMessageView.vue')
+    component: () => import('../views/Tutor/TutorMessageView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tutorSettings',
     name: 'TutorSettings',
-    component: () => import('../views/Tutor/TutorSettingsView.vue')
+    component: () => import('../views/Tutor/TutorSettingsView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
-  //Student
+  // Student
   {
     path: '/studentDashboard',
     name: 'StudentDashboard',
-    component: () => import('../views/Student/StudentDashboardView.vue')
+    component: () => import('../views/Student/StudentDashboardView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentSchedule',
     name: 'StudentSchedule',
-    component: () => import('../views/Student/StudentScheduleView.vue')
+    component: () => import('../views/Student/StudentScheduleView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentMessage',
     name: 'StudentMessage',
-    component: () => import('../views/Student/StudentMessageView.vue')
+    component: () => import('../views/Student/StudentMessageView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentCourses',
     name: 'StudentCourses',
-    component: () => import('../views/Student/StudentCoursesView.vue')
+    component: () => import('../views/Student/StudentCoursesView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentAssignment',
     name: 'StudentAssignment',
-    component: () => import('../views/Student/StudentAssignmentView.vue')
+    component: () => import('../views/Student/StudentAssignmentView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentTransaction',
     name: 'StudentTransaction',
-    component: () => import('../views/Student/StudentTransactionView.vue')
+    component: () => import('../views/Student/StudentTransactionView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/studentSettings',
     name: 'StudentSettings',
-    component: () => import('../views/Student/StudentSettingsView.vue')
+    component: () => import('../views/Student/StudentSettingsView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
-/***********************************************************************/
-
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });
 
-router.beforeEach((to, _, next) => {
-  const authRequiredRoutes = ["HomePage"];
-  const authNotRequiredRoutes = ["LoginPage", "RegisterPage"];
+router.beforeEach((to, from, next) => {
+  const publicPages = ['home', 'Login', 'register', 'Contact', 'FindTutor', 'About'];
+  const authRequired = !publicPages.includes(to.name);
   const _isAuthenticated = store.getters._isAuthenticated;
 
-  if (authNotRequiredRoutes.indexOf(to.name) > -1 && _isAuthenticated) next(false);
-
-  if (authRequiredRoutes.indexOf(to.name) > -1) {
-    if (_isAuthenticated) next();
-    else next({ name: "LoginPage" });
-  } else {
-    next();
+  // Eğer kullanıcı giriş yapmışsa ve login sayfasına gitmeye çalışıyorsa ana sayfaya yönlendir
+  if (to.name === 'Login' && _isAuthenticated) {
+    return next({ name: 'home' });
   }
+
+  // Eğer yetki gerektiren bir sayfaya erişmeye çalışıyorsa ve giriş yapmamışsa giriş sayfasına yönlendir
+  if (authRequired && !_isAuthenticated) {
+    alert('Bu sayfaya erişmek için giriş yapmalısınız.');
+    return next({ name: 'Login' });
+  }
+
+  next();
 });
 
-export default router
+export default router;

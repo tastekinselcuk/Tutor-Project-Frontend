@@ -35,27 +35,45 @@
           <label for="endDate">Bitiş Tarihi:</label>
           <input type="datetime-local" v-model="newCourse.endDate" class="form-control" id="endDate" required>
         </div>
-        <button type="submit" class="btn btn-success">Dersi Ekle</button>
+        <div class="form-group">
+          <label for="courseImage">Ders Resmi:</label>
+          <input type="file" @change="onImageChange" class="form-control-file" id="courseImage" required>
+        </div>
+        <div v-if="imagePreview" class="mt-3">
+          <h5>Önizleme:</h5>
+          <img :src="imagePreview" class="img-fluid img-thumbnail" alt="Ders Resmi">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Dersi Ekle</button>
       </form>
     </div>
 
     <!-- Açılan derslerin listesi -->
-    <div v-if="courses.length > 0" class="courses-list mt-5 text-center">
+    <div v-if="courses.length > 0" class="courses-list mt-5">
       <h3>Açılan Dersler</h3>
-      <div class="list-group">
-        <div v-for="(course, index) in courses" :key="index" class="course-item card mb-3 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">{{ course.courseSubject }}</h5>
-            <p class="card-text">{{ course.description }}</p>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>Toplam Süre:</strong> {{ course.totalDuration }} saat</li>
-              <li class="list-group-item"><strong>Ücret:</strong> {{ course.price }} TL</li>
-              <li class="list-group-item"><strong>Başlangıç Tarihi:</strong> {{ formatDate(course.startDate) }}</li>
-              <li class="list-group-item"><strong>Bitiş Tarihi:</strong> {{ formatDate(course.endDate) }}</li>
-            </ul>
-            <div class="d-flex justify-content-end mt-3">
-              <button @click="editCourse(course)" class="btn btn-outline-primary btn-sm mx-1">Düzenle</button>
-              <button @click="softDeleteCourse(course.id)" class="btn btn-outline-danger btn-sm mx-1">Sil</button>
+      <div class="row">
+        <div v-for="(course, index) in courses" :key="index" class="col-12 mb-4">
+          <div class="course-item card shadow-sm h-100 d-flex flex-row">
+            <img :src="course.image" class="course-img" alt="Ders Resmi">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ course.courseSubject }}</h5>
+              <p class="card-text">{{ course.description }}</p>
+              <div class="mt-auto">
+                <div class="course-details">
+                  <div class="badge-container">
+                    <span class="badge bg-light text-dark p-2 rounded">Toplam Süre: {{ course.totalDuration }} saat</span>
+                    <span class="badge bg-light text-dark p-2 rounded">Ücret: {{ course.price }} TL</span>
+                  </div>
+                  <div class="badge-container mt-2">
+                    <span class="badge bg-light text-dark p-2 rounded">Başlangıç: {{ formatDate(course.startDate) }}</span>
+                    <span class="badge bg-light text-dark p-2 rounded">Bitiş: {{ formatDate(course.endDate) }}</span>
+                  </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-around">
+                  <button @click="editCourse(course)" class="btn btn-outline-primary btn-sm">Düzenle</button>
+                  <button @click="softDeleteCourse(course.id)" class="btn btn-outline-danger btn-sm">Sil</button>
+                  <button @click="registerCourse(course.id)" class="btn btn-outline-success btn-sm">Derse Kayıt Ol</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -68,7 +86,6 @@
 </template>
 
 <script>
-import CourseService from '@/services/CourseService';
 import Navbar from "@/components/NavBar.vue";
 import NavbarTutor from "@/components/NavBarTutor.vue";
 
@@ -82,8 +99,10 @@ export default {
         totalDuration: '',
         price: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        image: ''
       },
+      imagePreview: null,
       courses: []
     };
   },
@@ -92,57 +111,57 @@ export default {
     NavbarTutor
   },
   mounted() {
-    // Sayfa yüklendiğinde kursları getir
     this.loadCourses();
   },
   methods: {
     loadCourses() {
-      // Tüm kursları yükle
-      CourseService.getAllCourses()
-        .then(response => {
-          this.courses = response.data;
-        })
-        .catch(error => {
-          console.error('Kurs listesi alınamadı:', error);
-        });
+      // Fake data to demonstrate the functionality
+      this.courses = [
+        {
+          id: 1,
+          courseSubject: 'Matematik',
+          description: 'Matematik dersi',
+          totalDuration: 10,
+          price: 100,
+          startDate: new Date().toISOString(),
+          endDate: new Date().toISOString(),
+          image: this.imagePreview
+        }
+      ];
     },
     addCourse() {
-      // Yeni dersi ekle
-      CourseService.addCourse(this.newCourse)
-        .then(() => {
-          this.resetForm();
-          this.loadCourses(); // Kursları yeniden yükle
-        })
-        .catch(error => {
-          console.error('Ders eklenemedi:', error);
-        });
+      const newCourseWithImage = { ...this.newCourse, image: this.imagePreview };
+      this.courses.push(newCourseWithImage);
+      this.resetForm();
     },
     resetForm() {
-      // Formu sıfırla
       this.newCourse = {
         courseSubject: '',
         description: '',
         totalDuration: '',
         price: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        image: ''
       };
+      this.imagePreview = null;
       this.showAddCourseForm = false;
     },
+    onImageChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.imagePreview = URL.createObjectURL(file);
+      }
+    },
     editCourse(course) {
-      // Düzenleme için seçilen dersi işle
       console.log('Düzenlenen Ders:', course);
-      // İlgili dersle ilgili işlemleri yapabilirsiniz
     },
     softDeleteCourse(courseId) {
-      // Dersi soft-delete işlemi
-      CourseService.deleteCourse(courseId)
-        .then(() => {
-          this.loadCourses(); // Kursları yeniden yükle
-        })
-        .catch(error => {
-          console.error('Ders silinemedi:', error);
-        });
+      this.courses = this.courses.filter(course => course.id !== courseId);
+    },
+    registerCourse(courseId) {
+      console.log('Derse kayıt ol:', courseId);
+      // Derse kayıt olma işlemleri burada yapılabilir
     },
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -154,7 +173,7 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -163,8 +182,6 @@ export default {
   justify-content: center;
 }
 .courses-list {
-  max-width: 800px;
-  margin: 0 auto;
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
@@ -175,28 +192,44 @@ export default {
   border: 1px solid #dee2e6;
   border-radius: 5px;
   transition: all 0.2s;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
 }
 .course-item:hover {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
 }
-.course-item:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.course-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 15px;
 }
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 .card-text {
   font-size: 1rem;
   margin-bottom: 10px;
 }
-.list-group-item {
-  background-color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
+.badge-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
-.btn-outline-primary, .btn-outline-danger {
+.course-details {
+  margin-top: 10px;
+}
+.btn-outline-primary, .btn-outline-danger, .btn-outline-success {
   border-radius: 20px;
+  margin: 5px;
+}
+.img-fluid.img-thumbnail {
+  max-width: 300px;
+  height: auto;
 }
 </style>

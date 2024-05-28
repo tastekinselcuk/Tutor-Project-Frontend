@@ -3,30 +3,33 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <!--Responsive toggle button-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav-2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--Navbar items-->
-            <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-start" id="navbarNav-2">
                 <!--Navbar pages-->
                 <ul id="navItems" class="navbar-nav">
                     <li class="nav-item">
-                        <router-link to="/studentMessage">Messages</router-link>
+                        <router-link to="/studentDashboard">Ana Sayfa</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/studentCourses">My Lessons</router-link>
+                        <router-link to="/studentMessage">Mesajlar</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/studentTransaction">Transaction</router-link>
+                        <router-link to="/studentCourses">Derslerim</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/studentAssignment">Assignment</router-link>
+                        <router-link to="/studentTransaction">Ödeme Yap</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/studentLive">Live Lessons</router-link>
+                        <router-link to="/studentAssignment">Ödevlerim</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/studentSettings">Settings</router-link>
+                        <router-link to="/studentLive">Canlı Dersler</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/studentSettings">Ayarlar</router-link>
                     </li>
                 </ul>
             </div>
@@ -86,6 +89,16 @@ export default {
     padding: 8px;
     background-color: #F4F3F8;
 
+}
+#nav-item:not(.router-link-active):hover{
+    display: block;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 16px;
+    font-family: 'Arial Rounded MT';
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px;
+    background-color: #F4F3F8;
 }
 
 /*Underline Design */

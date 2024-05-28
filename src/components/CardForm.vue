@@ -99,13 +99,15 @@
         </div>
       </div>
 
-      <button class="card-form__button" v-on:click="invaildCard">{{ $t('cardForm.submit') }}</button>
+      <button class="card-form__button" @click="validateCard">{{ $t('cardForm.submit') }}</button>
     </div>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'CardForm',
   directives: {
@@ -136,16 +138,14 @@ export default {
   props: {
     formData: {
       type: Object,
-      default: () => {
-        return {
-          cardName: '',
-          cardNumber: '',
-          cardNumberNotMask: '',
-          cardMonth: '',
-          cardYear: '',
-          cardCvv: ''
-        }
-      }
+      default: () => ({
+        cardName: '',
+        cardNumber: '',
+        cardNumberNotMask: '',
+        cardMonth: '',
+        cardYear: '',
+        cardCvv: ''
+      })
     },
     backgroundImage: [String, Object],
     randomBackgrounds: {
@@ -188,6 +188,7 @@ export default {
     this.maskCardNumber()
   },
   methods: {
+    ...mapActions(['showAlert']), // Assuming you have a Vuex action to show alerts
     generateMonthValue (n) {
       return n < 10 ? `0${n}` : n
     },
@@ -227,11 +228,11 @@ export default {
       this.formData.cardCvv = e.target.value
       this.$emit('input-card-cvv', this.formData.cardCvv)
     },
-    invaildCard () {
-      let number = this.formData.cardNumberNotMask.replace(/ /g, '')
-      var sum = 0
-      for (var i = 0; i < number.length; i++) {
-        var intVal = parseInt(number.substr(i, 1))
+    validateCard () {
+      const number = this.formData.cardNumberNotMask.replace(/ /g, '')
+      let sum = 0
+      for (let i = 0; i < number.length; i++) {
+        let intVal = parseInt(number.substr(i, 1))
         if (i % 2 === 0) {
           intVal *= 2
           if (intVal > 9) {
@@ -242,6 +243,9 @@ export default {
       }
       if (sum % 10 !== 0) {
         alert(this.$t('cardForm.invalidCardNumber'))
+      } else {
+        alert('Ödeme gerçekleştirilmiştir')
+        this.$router.push('/')
       }
     },
     blurCardNumber () {

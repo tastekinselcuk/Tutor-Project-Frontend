@@ -11,22 +11,25 @@
                 <!--Navbar pages-->
                 <ul id="navItems" class="navbar-nav">
                     <li class="nav-item">
-                        <router-link to="/tutorMessage">Messages</router-link>
+                        <router-link to="/tutorDashboard">Ana Sayfa</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tutorCourses">My Lessons</router-link>
+                        <router-link to="/tutorMessage">Mesajlar</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tutorTransaction">Transaction</router-link>
+                        <router-link to="/tutorCourses">Ders Aç</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tutorAssignment">Assignment</router-link>
+                        <router-link to="/tutorTransaction">Ödemeler</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tutorLive">Live Lessons</router-link>
+                        <router-link to="/tutorAssignment">Ödev Oluştur</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tutorSettings">Settings</router-link>
+                        <router-link to="/tutorLive">Canlı Ders Aç</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/tutorSettings">Ayarlar</router-link>
                     </li>
                 </ul>
             </div>
@@ -57,7 +60,9 @@ export default {
     height: 60px;
     background-color: #fff;
     border-bottom: 2px solid #F5F7F9;
+    z-index: 900; /* Örneğin, yüksek bir z-index değeri atayabilirsiniz */
 }
+
 /*Navbar Items */
 #navItems {
     margin-left: 20px; /* Sol kenara boşluk bırakmak için */
@@ -65,6 +70,7 @@ export default {
 #navItems li {
     display: block;
     padding: 10px 5px 7px;
+    background-color: #fff; /* Arka plan rengi */
 }
 #navItems a {
     display: block;
@@ -85,7 +91,6 @@ export default {
     text-decoration: none;
     padding: 8px;
     background-color: #F4F3F8;
-
 }
 
 /*Underline Design */
@@ -98,4 +103,5 @@ export default {
     display: inline-block; /* Metnin yatayda sadece gereken kadar yer kaplamasını sağlar */
     padding-bottom: 3px; /* Alt çizgi ile metin arasında bir boşluk ekler (isteğe bağlı) */
 }
+
 </style>

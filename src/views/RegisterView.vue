@@ -9,22 +9,32 @@
                     <p class="bebas-neue-regular mb-5 mt-2">TUTORDAN</p>
                 </a>
               </div>            
-    <form @submit.prevent="registerUser">
-      <div class="form-group">
-        <input v-model="firstname" type="text" id="firstname" placeholder="Ad" required>
-      </div>
-      <div class="form-group">
-        <input v-model="lastname" type="text" id="lastname" placeholder="Soyad" required>
-      </div>
-      <div class="form-group">
-        <input v-model="email" type="email" id="email" placeholder="E-mail" required>
-      </div>
-      <div class="form-group">
-        <input v-model="password" type="password" id="password" placeholder="Şifre" required>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
-    </form>
+        <form @submit.prevent="register">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control" v-model="firstname" id="firstname" required placeholder="Ad:">
+          </div>
+          <div class="form-group mb-2">
+            <input type="text" class="form-control" v-model="lastname" id="lastname" required placeholder="Soyad:">
+          </div>
+          <div class="form-group mb-2">
+            <input type="email" class="form-control" v-model="email" id="email" required placeholder="E-mail:">
+          </div>
+          <div class="form-group mb-2">
+            <input class="form-control" v-model="password" type="password" id="password" placeholder="Şifre" required>
+          </div>
+          <div class="form-group">
+            <label for="role">Kullanıcı Türü:</label>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" v-model="role" id="student" name="role" value="STUDENT" required>
+              <label class="form-check-label" for="student">Öğrenci</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" v-model="role" id="teacher" name="role" value="TUTOR" required>
+              <label class="form-check-label" for="teacher">Öğretmen</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Kayıt ol</button>
+        </form>
     <span class="text-center mt-3 text-sm">
       Zaten Üyeyim,
       <router-link to="/login" class="text-red-900 hover:text-black">
@@ -47,17 +57,15 @@ export default {
       firstname: '',
       lastname: '',
       email: '',
-      password: ''
+      password: '',
+      role: ''
     };
   },
   methods: {
     async register() {
       try {
-        const userData = await AuthService.register(this.firstname, this.lastname, this.email, this.password);
-        const tokenData = await TokenService.decodeToken(userData.accessToken);
+        const userData = await AuthService.register(this.firstname, this.lastname, this.email, this.password, this.role);
         
-        // Kullanıcı bilgilerini sakla
-        this.$store.commit('setUser', tokenData);
         
         // Daha fazla yönlendirme veya işlem yapabilirsiniz
         this.$router.push('/dashboard');

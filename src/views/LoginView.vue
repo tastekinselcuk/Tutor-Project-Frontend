@@ -69,27 +69,28 @@ export default {
       event.preventDefault();
       AuthService.login(this.email, this.password)
         .then((data) => {
-          this.$store.commit("setUser", data.access_token);
+          const userDto = data.user_dto;
+          
+          // Commit the user and token to the Vuex store
+          this.$store.dispatch('login', { user: userDto });
 
-          // Kullanıcının rolüne göre yönlendirme yapılması
-          if (data.role === 'student') {
+          // Redirect based on the user's role
+          if (userDto.role === 'STUDENT') {
             this.$router.push('/studentDashboard');
-          } else if (data.role === 'teacher') {
-            this.$router.push('/tutorDashboard');
-          } else {
-            // Diğer durumlar için varsayılan bir yönlendirme
+          } else if (userDto.role === 'TUTOR') {
             this.$router.push('/tutorDashboard');
           }
         })
         .catch((error) => {
           console.error('Login error:', error);
           alert("Hatalı giriş işlemi");
-          // Hata mesajı gösterme veya işlem yapma
+          // Display or handle error message
         });
     },
   },
 };
 </script>
+
 
 
 <style scoped>

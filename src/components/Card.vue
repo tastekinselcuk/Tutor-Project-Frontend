@@ -33,7 +33,6 @@
           </div>
         </div>
         <label :for="fields.cardNumber" class="card-item__number" :ref="fields.cardNumber">
-          <template>
             <span v-for="(n, $index) in currentPlaceholder" :key="$index">
               <transition name="slide-fade-up">
                 <div class="card-item__numberItem" v-if="getIsNumberMasked($index, n)">*</div>
@@ -51,7 +50,6 @@
                 >{{n}}</div>
               </transition>
             </span>
-          </template>
         </label>
         <div class="card-item__content">
           <label :for="fields.cardName" class="card-item__info" :ref="fields.cardName">
