@@ -18,45 +18,53 @@
 					<div class="col-12 col-md-8">
 					<div class="app-card app-card-settings shadow-sm p-4">
 						<div class="app-card-body">
-						<form class="settings-form">
-							<div class="mb-3">
-								<label for="profile-picture" class="form-label">Profil Fotoğrafı</label>
-								<input type="file" class="form-control" id="profile-picture" accept="image/*" @change="previewProfilePicture" />
-								<div class="mt-3">
-									<img v-if="profilePictureUrl" :src="profilePictureUrl" alt="Profil Fotoğrafı Önizlemesi" class="img-fluid" style="max-width: 150px;" />
-								</div>
-							</div>
-							<div class="mb-3">
-							<label for="setting-input-1" class="form-label">Ad</label>
-							<input type="text" class="form-control" id="setting-input-1" required />
-							</div>
-							<div class="mb-3">
-							<label for="setting-input-2" class="form-label">Soyad</label>
-							<input type="text" class="form-control" id="setting-input-2" required />
-							</div>
-							<div class="mb-3">
-							<label for="setting-input-3" class="form-label">Telefon Numarası</label>
-							<input type="text" class="form-control" id="setting-input-3" />
-							</div>
-							<div class="mb-3">
-							<label for="setting-input-4" class="form-label">Email Adresi</label>
-							<input type="email" class="form-control" id="setting-input-4" />
-							</div>
-							<div class="form-group mb-3">
-								<label for="setting-input-5" class="form-label">Cinsiyet</label>
-								<div class="form-check">
-									<input type="radio" class="form-check-input" id="female" name="gender" value="FEMALE" required />
-									<label class="form-check-label" for="female">Kadın</label>
-								</div>
-								<div class="form-check">
-									<input type="radio" class="form-check-input" id="male" name="gender" value="MALE" required />
-									<label class="form-check-label" for="male">Erkek</label>
-								</div>
-							</div>
-							<div class="mt-3">
-							<button type="submit" class="btn app-btn btn-bordered-hover">Değişiklikleri Kaydet</button>
-							</div>
-						</form>
+                <form @submit.prevent="updateSettings">
+                  <!-- Profil fotoğrafı -->
+                  <div class="mb-3">
+                    <label for="profile-picture" class="form-label">Profil Fotoğrafı</label>
+                    <input type="file" class="form-control" id="profile-picture" accept="image/*" @change="previewProfilePicture" />
+                    <!-- Profil fotoğrafı önizleme -->
+                    <div class="mt-3" v-if="profilePictureUrl">
+                      <img :src="profilePictureUrl" alt="Profil Fotoğrafı Önizlemesi" class="img-fluid" style="max-width: 150px;" />
+                    </div>
+                  </div>
+                  <!-- Ad alanı -->
+                  <div class="mb-3">
+                    <label for="first-name" class="form-label">Ad</label>
+                    <input type="text" v-model="userData.firstname" class="form-control" id="first-name" required />
+                  </div>
+                  <!-- Soyad alanı -->
+                  <div class="mb-3">
+                    <label for="last-name" class="form-label">Soyad</label>
+                    <input type="text" v-model="userData.lastname" class="form-control" id="last-name" required />
+                  </div>
+                  <!-- Telefon numarası alanı -->
+                  <div class="mb-3">
+                    <label for="phone-number" class="form-label">Telefon Numarası</label>
+                    <input type="text" v-model="userData.phoneNumber" class="form-control" id="phone-number" />
+                  </div>
+                  <!-- E-posta alanı -->
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Adresi</label>
+                    <input type="email" v-model="userData.email" class="form-control" id="email" />
+                  </div>
+                  <!-- Cinsiyet alanı -->
+                  <div class="form-group mb-3">
+                    <label for="gender" class="form-label">Cinsiyet</label>
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" id="female" v-model="userData.gender" value="FEMALE" required />
+                      <label class="form-check-label" for="female">Kadın</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" id="male" v-model="userData.gender" value="MALE" required />
+                      <label class="form-check-label" for="male">Erkek</label>
+                    </div>
+                  </div>
+                  <!-- Değişiklikleri Kaydet butonu -->
+                  <div class="mt-3">
+                    <button type="submit" class="btn app-btn btn-bordered-hover">Değişiklikleri Kaydet</button>
+                  </div>
+                </form>
 						</div>
 						<!--//app-card-body-->
 					</div>
@@ -161,6 +169,7 @@
 </template>
 
 <script>
+import UserService from '@/services/UserService';
 import Navbar from "@/components/NavBar.vue";
 import NavbarTutor from "@/components/NavBarTutor.vue";
 
@@ -171,21 +180,56 @@ export default {
   },
   data() {
     return {
-      profilePictureUrl: null,
+      userData: {
+        firstname: '',
+        lastname: '',
+        phoneNumber: '',
+        gender: ''
+      },
+      profilePictureUrl: '',
+      profilePictureFile: null
     };
   },
   methods: {
+    loadUserData() {
+      const currentUser = this.$store.getters._getCurrentUser;
+      this.userData.firstname = currentUser.firstname;
+      this.userData.lastname = currentUser.lastname;
+      this.userData.email = currentUser.email;
+      this.userData.phoneNumber = currentUser.phoneNumber;
+      this.userData.gender = currentUser.gender;
+      this.profilePictureUrl = currentUser.profilePictureUrl;
+    },
     previewProfilePicture(event) {
       const file = event.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.profilePictureUrl = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        this.profilePictureFile = file;
+        this.profilePictureUrl = URL.createObjectURL(file);
       }
     },
+    updateSettings() {
+      const formData = new FormData();
+      formData.append('firstname', this.userData.firstname);
+      formData.append('lastname', this.userData.lastname);
+      formData.append('phoneNumber', this.userData.phoneNumber);
+      formData.append('email', this.userData.email);
+      formData.append('gender', this.userData.gender);
+      if (this.profilePictureFile) {
+        formData.append('profilePicture', this.profilePictureFile);
+      }
+
+      UserService.updateSettings(formData)
+        .then(() => {
+          // Success message or redirect
+        })
+        .catch(error => {
+          console.error("Ayarlar güncellenirken bir hata oluştu:", error);
+        });
+    },
   },
+  created() {
+    this.loadUserData();
+  }
 };
 </script>
 

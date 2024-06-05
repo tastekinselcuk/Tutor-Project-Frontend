@@ -20,10 +20,6 @@
           <textarea v-model="newAssignment.description" class="form-control" id="description" rows="3" required></textarea>
         </div>
         <div class="form-group">
-          <label for="totalDuration">Toplam Süre (gün):</label>
-          <input type="number" v-model="newAssignment.totalDuration" class="form-control" id="totalDuration" required>
-        </div>
-        <div class="form-group">
           <label for="startDate">Başlangıç Tarihi:</label>
           <input type="datetime-local" v-model="newAssignment.startDate" class="form-control" id="startDate" required>
         </div>
@@ -31,13 +27,13 @@
           <label for="endDate">Bitiş Tarihi:</label>
           <input type="datetime-local" v-model="newAssignment.endDate" class="form-control" id="endDate" required>
         </div>
-        <button type="submit" class="btn btn-success">Ödevi Ekle</button>
+        <button type="submit" class="btn btn-success mt-3">Ödevi Ekle</button>
       </form>
     </div>
 
     <!-- Açılan derslerin listesi -->
     <div v-if="assignments.length > 0" class="assignment-list mt-5 text-center">
-      <h3>Ödevler</h3>
+      <h3>Oluşturlan Ödevler</h3>
       <div class="list-group">
         <div v-for="(assignment, index) in assignments" :key="index" class="course-item card mb-3 shadow-sm">
           <div class="card-body">
@@ -48,8 +44,8 @@
               <li class="list-group-item"><strong>Bitiş Tarihi:</strong> {{ formatDate(assignment.endDate) }}</li>
             </ul>
             <div class="d-flex justify-content-end mt-3">
-              <button @click="editCourse(assignment)" class="btn btn-outline-primary btn-sm mx-1">Düzenle</button>
-              <button @click="softDeleteCourse(assignment.id)" class="btn btn-outline-danger btn-sm mx-1">Sil</button>
+              <button @click="editAssignment(assignment)" class="btn btn-outline-primary btn-sm mx-1">Düzenle</button>
+              <button @click="softDeleteAssignment(assignment.id)" class="btn btn-outline-danger btn-sm mx-1">Sil</button>
             </div>
           </div>
         </div>
@@ -71,9 +67,8 @@ export default {
     return {
       showAddAssignmentForm: false,
       newAssignment: {
-        assignmentSubject: '',
+        assignmentHeader: '',
         description: '',
-        totalDuration: '',
         startDate: '',
         endDate: ''
       },
@@ -86,10 +81,10 @@ export default {
   },
   mounted() {
     // Sayfa yüklendiğinde ödevler getir
-    this.loadAssignment();
+    this.loadAssignments();
   },
   methods: {
-    loadAssignment() {
+    loadAssignments() {
       // Tüm ödevleri yükle
       AssignmentService.getAllAssignments()
         .then(response => {
@@ -101,11 +96,10 @@ export default {
     },
     addAssignment() {
       // Yeni ödev ekle
-      const submissionDate = new Date();
       AssignmentService.addAssignment(this.newAssignment)
         .then(() => {
           this.resetForm();
-          this.loadAssignment(); // ödevleri yeniden yükle
+          this.loadAssignments(); // ödevleri yeniden yükle
         })
         .catch(error => {
           console.error('Ödev eklenemedi:', error);
@@ -114,9 +108,8 @@ export default {
     resetForm() {
       // Formu sıfırla
       this.newAssignment = {
-        assignmentSubject: '',
+        assignmentHeader: '',
         description: '',
-        totalDuration: '',
         startDate: '',
         endDate: ''
       };
@@ -131,7 +124,7 @@ export default {
       // Ödev soft-delete işlemi
       AssignmentService.deleteAssignment(assignmentId)
         .then(() => {
-          this.loadAssignment(); // Kursları yeniden yükle
+          this.loadAssignments(); // Kursları yeniden yükle
         })
         .catch(error => {
           console.error('Ödev silinemedi:', error);

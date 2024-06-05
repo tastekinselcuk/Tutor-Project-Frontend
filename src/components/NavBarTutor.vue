@@ -95,13 +95,13 @@ export default {
 
 /*Underline Design */
 .router-link-active {
-    background-image: linear-gradient(90deg, #7F7FD5 20%, #91EAE4 90%);
-    background-size: 100% 2px; /* Alt çizginin kalınlığı */
-    background-repeat: no-repeat;
-    background-position: 0 100%; /* Alt çizginin başlangıç pozisyonu */
-    text-decoration: none; /* Metin üzerindeki varsayılan alt çizgiyi kaldırır */
-    display: inline-block; /* Metnin yatayda sadece gereken kadar yer kaplamasını sağlar */
-    padding-bottom: 3px; /* Alt çizgi ile metin arasında bir boşluk ekler (isteğe bağlı) */
+    display: block;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 16px;
+    font-family: 'Arial Rounded MT';
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px;
+    background-color: #F4F3F8;
 }
-
 </style>

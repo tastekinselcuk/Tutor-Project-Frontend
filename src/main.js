@@ -4,7 +4,7 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 import AuthService from './services/AuthService';
-import i18n from './i18n'; // dil çevirisi için i18n modülü
+import i18n from './i18n';
 
 axios.defaults.baseURL = 'http://localhost:8086';
 

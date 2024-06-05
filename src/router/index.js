@@ -149,6 +149,14 @@ const routes = [
     },
   },
   {
+    path: '/studentLive',
+    name: 'StudentLive',
+    component: () => import('../views/Student/StudentLiveLessonView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/studentTransaction',
     name: 'StudentTransaction',
     component: () => import('../views/Student/StudentTransactionView.vue'),

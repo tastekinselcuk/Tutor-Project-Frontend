@@ -8,11 +8,19 @@ class CourseService {
   }
 
   addCourse(courseData) {
-    return axios.post(`${API_URL}/add`, courseData);
+    return axios.post(`${API_URL}/add`, courseData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 
   updateCourse(id, courseData) {
-    return axios.put(`${API_URL}/update/${id}`, courseData);
+    return axios.put(`${API_URL}/update/${id}`, courseData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 
   deleteCourse(id) {

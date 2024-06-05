@@ -7,6 +7,7 @@ export default createStore({
   },
   getters: {
     _isAuthenticated: state => state.user !== null,
+    _getCurrentUserRole: state => state.user ? state.user.role : null,
     _getCurrentUser(state) {
       return state.user;
     },
