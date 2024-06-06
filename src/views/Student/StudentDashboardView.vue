@@ -105,7 +105,7 @@
               <tr>
                 <th><h1>Öğretmen</h1></th>
                 <th><h1>Ders</h1></th>
-                <th><h1>Sınıf</h1></th>
+                <th><h1>Ödev</h1></th>
                 <th><h1>Ders Saati</h1></th>
               </tr>
             </thead>
@@ -113,31 +113,31 @@
               <tr>
                 <td>Ali Yılmaz</td>
                 <td>Matematik</td>
-                <td>10A</td>
+                <td>3</td>
                 <td>09:00 - 10:00</td>
               </tr>
               <tr>
                 <td>Ayşe Kaya</td>
                 <td>Fizik</td>
-                <td>10A</td>
+                <td>-</td>
                 <td>10:15 - 11:15</td>
               </tr>
               <tr>
                 <td>Mehmet Demir</td>
                 <td>Kimya</td>
-                <td>10B</td>
+                <td>2</td>
                 <td>11:30 - 12:30</td>
               </tr>
               <tr>
                 <td>Fatma Çelik</td>
                 <td>Biyoloji</td>
-                <td>10B</td>
+                <td>1</td>
                 <td>13:00 - 14:00</td>
               </tr>
               <tr>
                 <td>Ömer Şahin</td>
                 <td>Türkçe</td>
-                <td>10C</td>
+                <td>2</td>
                 <td>14:15 - 15:15</td>
               </tr>
             </tbody>

@@ -15,8 +15,27 @@ class UserService {
     return axios.get(`${API_URL}/getUserByEmail/${email}`);
   }
 
+  getProfilePictureByEmail(email) {
+    return axios.get(`${API_URL}/getProfilePictureByEmail/${email}`);
+  }
+
   deleteUser(id) {
     return axios.delete(`${API_URL}/delete/${id}`);
+  }
+
+  updateSettings(email, userDto, profilePicture) {
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('user', JSON.stringify(userDto));
+    if (profilePicture) {
+      formData.append('profilePicture', profilePicture);
+    }
+
+    return axios.put(`${API_URL}/updateByEmail`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 }
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store';
 
 
-const API_URL = 'https://tutor-service.onrender.com/api/auth';
+const API_URL = 'http://localhost:8086/api/auth';
 
 class AuthService {
   register(firstname, lastname, email, password, role) {

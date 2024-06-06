@@ -10,6 +10,7 @@
       />
     </div>
     <div class="card-form__inner">
+      <!-- Kart Numarası -->
       <div class="card-input">
         <label for="cardNumber" class="card-input__label">{{ $t('cardForm.cardNumber') }}</label>
         <input
@@ -33,6 +34,7 @@
           @click="toggleMask"
         ></button>
       </div>
+      <!-- Kart Sahibi Adı -->
       <div class="card-input">
         <label for="cardName" class="card-input__label">{{ $t('cardForm.cardName') }}</label>
         <input
@@ -46,6 +48,7 @@
           autocomplete="off"
         />
       </div>
+      <!-- Kart Tarih ve CVV -->
       <div class="card-form__row">
         <div class="card-form__col">
           <div class="card-form__group">
@@ -105,33 +108,33 @@
 </template>
 
 <script>
-import Card from '@/components/Card'
-import { mapActions } from 'vuex'
+import Card from '@/components/Card';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'CardForm',
   directives: {
     'number-only': {
-      bind (el) {
-        function checkValue (event) {
-          event.target.value = event.target.value.replace(/[^0-9]/g, '')
+      bind(el) {
+        function checkValue(event) {
+          event.target.value = event.target.value.replace(/[^0-9]/g, '');
           if (event.charCode >= 48 && event.charCode <= 57) {
-            return true
+            return true;
           }
-          event.preventDefault()
+          event.preventDefault();
         }
-        el.addEventListener('keypress', checkValue)
+        el.addEventListener('keypress', checkValue);
       }
     },
     'letter-only': {
-      bind (el) {
-        function checkValue (event) {
+      bind(el) {
+        function checkValue(event) {
           if (event.charCode >= 48 && event.charCode <= 57) {
-            event.preventDefault()
+            event.preventDefault();
           }
-          return true
+          return true;
         }
-        el.addEventListener('keypress', checkValue)
+        el.addEventListener('keypress', checkValue);
       }
     }
   },
@@ -156,7 +159,7 @@ export default {
   components: {
     Card
   },
-  data () {
+  data() {
     return {
       fields: {
         cardNumber: 'v-card-number',
@@ -169,115 +172,114 @@ export default {
       isCardNumberMasked: true,
       mainCardNumber: this.cardNumber,
       cardNumberMaxLength: 19
-    }
+    };
   },
   computed: {
-    minCardMonth () {
-      if (this.formData.cardYear === this.minCardYear) return new Date().getMonth() + 1
-      return 1
+    minCardMonth() {
+      if (this.formData.cardYear === this.minCardYear) return new Date().getMonth() + 1;
+      return 1;
     }
   },
   watch: {
-    cardYear () {
+    cardYear() {
       if (this.formData.cardMonth < this.minCardMonth) {
-        this.formData.cardMonth = ''
+        this.formData.cardMonth = '';
       }
     }
   },
-  mounted () {
-    this.maskCardNumber()
+  mounted() {
+    this.maskCardNumber();
   },
   methods: {
-    ...mapActions(['showAlert']), // Assuming you have a Vuex action to show alerts
-    generateMonthValue (n) {
-      return n < 10 ? `0${n}` : n
+    ...mapActions(['showAlert']),
+    generateMonthValue(n) {
+      return n < 10 ? `0${n}` : n;
     },
-    changeName (e) {
-      this.formData.cardName = e.target.value
-      this.$emit('input-card-name', this.formData.cardName)
+    changeName(e) {
+      this.formData.cardName = e.target.value;
+      this.$emit('input-card-name', this.formData.cardName);
     },
-    changeNumber (e) {
-      this.formData.cardNumber = e.target.value
-      let value = this.formData.cardNumber.replace(/\D/g, '')
-      // american express, 15 digits
-      if ((/^3[47]\d{0,13}$/).test(value)) {
-        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ')
-        this.cardNumberMaxLength = 17
-      } else if ((/^3(?:0[0-5]|[68]\d)\d{0,11}$/).test(value)) { // diner's club, 14 digits
-        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ')
-        this.cardNumberMaxLength = 16
-      } else if ((/^\d{0,16}$/).test(value)) { // regular cc number, 16 digits
-        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{4})/, '$1 $2 ').replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ')
-        this.cardNumberMaxLength = 19
+    changeNumber(e) {
+      this.formData.cardNumber = e.target.value;
+      let value = this.formData.cardNumber.replace(/\D/g, '');
+      if (/^3[47]\d{0,13}$/.test(value)) {
+        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ');
+        this.cardNumberMaxLength = 17;
+      } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) {
+        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ');
+        this.cardNumberMaxLength = 16;
+      } else if (/^\d{0,16}$/.test(value)) {
+        this.formData.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{4})/, '$1 $2 ').replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ');
+        this.cardNumberMaxLength = 19;
       }
-      // eslint-disable-next-line eqeqeq
       if (e.inputType == 'deleteContentBackward') {
-        let lastChar = this.formData.cardNumber.substring(this.formData.cardNumber.length, this.formData.cardNumber.length - 1)
-        // eslint-disable-next-line eqeqeq
-        if (lastChar == ' ') { this.formData.cardNumber = this.formData.cardNumber.substring(0, this.formData.cardNumber.length - 1) }
+        let lastChar = this.formData.cardNumber.substring(this.formData.cardNumber.length, this.formData.cardNumber.length - 1);
+        if (lastChar == ' ') {
+          this.formData.cardNumber = this.formData.cardNumber.substring(0, this.formData.cardNumber.length - 1);
+        }
       }
-      this.$emit('input-card-number', this.formData.cardNumber)
+      this.$emit('input-card-number', this.formData.cardNumber);
     },
-    changeMonth () {
-      this.$emit('input-card-month', this.formData.cardMonth)
+    changeMonth() {
+      this.$emit('input-card-month', this.formData.cardMonth);
     },
-    changeYear () {
-      this.$emit('input-card-year', this.formData.cardYear)
+    changeYear() {
+      this.$emit('input-card-year', this.formData.cardYear);
     },
-    changeCvv (e) {
-      this.formData.cardCvv = e.target.value
-      this.$emit('input-card-cvv', this.formData.cardCvv)
+    changeCvv(e) {
+      this.formData.cardCvv = e.target.value;
+      this.$emit('input-card-cvv', this.formData.cardCvv);
     },
-    validateCard () {
-      const number = this.formData.cardNumberNotMask.replace(/ /g, '')
-      let sum = 0
+    validateCard() {
+      const number = this.formData.cardNumberNotMask.replace(/ /g, '');
+      let sum = 0;
       for (let i = 0; i < number.length; i++) {
-        let intVal = parseInt(number.substr(i, 1))
+        let intVal = parseInt(number.substr(i, 1));
         if (i % 2 === 0) {
-          intVal *= 2
+          intVal *= 2;
           if (intVal > 9) {
-            intVal = 1 + (intVal % 10)
+            intVal = 1 + (intVal % 10);
           }
         }
-        sum += intVal
+        sum += intVal;
       }
       if (sum % 10 !== 0) {
-        alert(this.$t('cardForm.invalidCardNumber'))
+        alert(this.$t('cardForm.invalidCardNumber'));
       } else {
-        alert('Ödeme gerçekleştirilmiştir')
-        this.$router.push('/')
+        alert('Ödeme gerçekleştirilmiştir');
+        this.$router.push('/studentTransaction');
       }
     },
-    blurCardNumber () {
+    blurCardNumber() {
       if (this.isCardNumberMasked) {
-        this.maskCardNumber()
+        this.maskCardNumber();
       }
     },
-    maskCardNumber () {
-      this.formData.cardNumberNotMask = this.formData.cardNumber
-      this.mainCardNumber = this.formData.cardNumber
-      let arr = this.formData.cardNumber.split('')
+    maskCardNumber() {
+      this.formData.cardNumberNotMask = this.formData.cardNumber;
+      this.mainCardNumber = this.formData.cardNumber;
+      let arr = this.formData.cardNumber.split('');
       arr.forEach((element, index) => {
         if (index > 4 && index < 14 && element.trim() !== '') {
-          arr[index] = '*'
+          arr[index] = '*';
         }
-      })
-      this.formData.cardNumber = arr.join('')
+      });
+      this.formData.cardNumber = arr.join('');
     },
-    unMaskCardNumber () {
-      this.formData.cardNumber = this.mainCardNumber
+    unMaskCardNumber() {
+      this.formData.cardNumber = this.mainCardNumber;
     },
-    focusCardNumber () {
-      this.unMaskCardNumber()
+    focusCardNumber() {
+      this.unMaskCardNumber();
     },
-    toggleMask () {
-      this.isCardNumberMasked = !this.isCardNumberMasked
+    toggleMask() {
+      this.isCardNumberMasked = !this.isCardNumberMasked;
       if (this.isCardNumberMasked) {
-        this.maskCardNumber()
+        this.maskCardNumber();
       } else {
-        this.unMaskCardNumber()
+        this.unMaskCardNumber();
       }
     }
   }
-}
+};
 </script>
