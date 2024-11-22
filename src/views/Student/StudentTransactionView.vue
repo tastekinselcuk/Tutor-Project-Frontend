@@ -13,7 +13,7 @@
           @input-card-year="updateCardYear"
           @input-card-cvv="updateCardCvv"
         />
-        <button @click="submitPayment" class="btn btn-primary mt-3">Submit</button>
+        <button @click="submitPayment" class="btn btn-primary mt-3">Ödeme Yap</button>
       </div>
 
       <!-- Ödeme Kayıtları -->

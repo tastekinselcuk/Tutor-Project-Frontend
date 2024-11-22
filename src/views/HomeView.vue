@@ -137,7 +137,7 @@ p{
     margin-left: 10px;
 }
 .left {
-  background-color: #FF7AAC;
+  background: linear-gradient(135deg, #FF7AAC, #3DDABE, #FF7AAC);
   height: 100vh;
 }
 .studentImg{
@@ -255,7 +255,7 @@ span{
 }
 /*Right side*/
 .right {
-  background-color: #3DDABE;
+  background: linear-gradient(135deg, #3DDABE, #FF7AAC, #3DDABE);
   height: 100vh;
 }
 .tutorImg{
